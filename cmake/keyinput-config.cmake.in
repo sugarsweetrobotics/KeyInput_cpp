@@ -1,0 +1,54 @@
+# KeyInput CMake config file
+#
+# This file sets the following variables:
+# KeyInput_FOUND - Always TRUE.
+# KeyInput_INCLUDE_DIRS - Directories containing the KeyInput include files.
+# KeyInput_IDL_DIRS - Directories containing the KeyInput IDL files.
+# KeyInput_LIBRARIES - Libraries needed to use KeyInput.
+# KeyInput_DEFINITIONS - Compiler flags for KeyInput.
+# KeyInput_VERSION - The version of KeyInput found.
+# KeyInput_VERSION_MAJOR - The major version of KeyInput found.
+# KeyInput_VERSION_MINOR - The minor version of KeyInput found.
+# KeyInput_VERSION_REVISION - The revision version of KeyInput found.
+# KeyInput_VERSION_CANDIDATE - The candidate version of KeyInput found.
+
+message(STATUS "Found KeyInput-@PROJECT_VERSION@")
+set(KeyInput_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(KeyInput_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(KeyInput_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(KeyInput_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(KeyInput_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(KeyInput_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(KeyInput_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(KeyInput_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(KeyInput_VERSION @PROJECT_VERSION@)
+set(KeyInput_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(KeyInput_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(KeyInput_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(KeyInput_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
